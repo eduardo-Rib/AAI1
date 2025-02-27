@@ -1,47 +1,56 @@
-function calculaSalario() {
-    let codigo = parseInt(document.getElementById("codigo").value)
-    let horas = parseFloat(document.getElementById("horas").value)
-    let turno = document.getElementById("turno").value
-    let categoria = document.getElementById("categoria").value.toLowerCase()
-    let salario = parseFloat(document.getElementById("salario").value)
+function calcularFrete() {
+    let distancia = parseFloat(document.getElementById("distancia").value)
+    let pecas = parseInt(document.getElementById("pecas").value)
+    let regiao = parseInt(document.getElementById("regiao").value)
+    let rastreamento = document.getElementById("rastreamento").value.toUpperCase()
+
 
     try{
-
-        if (isNaN(codigo) || isNaN(horas) || isNaN(salario)) {
-            throw new Error("Insira um valor!")
+        if (isNaN(distancia) || isNaN(pecas) || isNaN(regiao) || isNaN(rastreamento)) {
+            throw new Error("Insira um valor!");
         }
 
-        let valorHoras = 0;
-        if (categoria === 'g'){
-            if ((turno === 'm')||(turno === 'v')){
-                valorHoras = salario*0.04 
-            }
-        }else{
-            if (turno === 'n'){
-                valorHoras = salario*0.02
-            }else{
-                valorHoras = salario*0.01
-            }
+        let taxaRastreamento = 0
+        if (rastreamento === "S") {
+            taxaRastreamento = 200
         }
 
-        let salarioBruto = horas*valorHoras
-
-        let alimentacao  = 0
-        if (salarioBruto <= 800){
-            alimentacao = salarioBruto*0.25
-        }else if (salarioBruto <= 1200){
-            alimentacao = salarioBruto*0.20
-        }else{
-            alimentacao = salarioBruto*0.15
+        let valorFretePeca, desconto
+        switch (regiao) {
+            case 1: 
+                valorFretePeca = 1.00
+                desconto = 0.10
+                break
+            case 2: 
+                valorFretePeca = 1.20
+                desconto = 0.12
+                break
+            case 3:
+                valorFretePeca = 1.30
+                desconto = 0.13
+                break
+            default:
+                alert("Região inválida! Escolha 1, 2 ou 3.")
+                return
         }
 
-        document.getElementById("codigoSaida").innerText = `Código: ${codigo}`
-        document.getElementById("horasSaida").innerText = `Horas: ${horas}`
-        document.getElementById("valorHoras").innerText = `Valor por hora: R$ ${valorHoras.toFixed(2)}`
-        document.getElementById("salarioBruto").innerText = `Salário Bruto: R$ ${salarioBruto.toFixed(2)}`
-        document.getElementById("alimentacao").innerText = `Vale alimentação: R$ ${alimentacao.toFixed(2)}`
-        document.getElementById("salarioFinal").innerText = `Salário Final: R$ ${(salarioBruto + alimentacao).toFixed(2)}`
-    }catch (error) {
-        document.getElementById("codigoSaida").innerText = error.message;
+        let valorFretePecas
+        if (pecas <= 1000) {
+            valorFretePecas = pecas * valorFretePeca
+        } else {
+            let excesso = pecas - 1000
+            let valorComDesconto = valorFretePeca * (1 - desconto)
+            valorFretePecas = (1000 * valorFretePeca) + (excesso * valorComDesconto)
+        }
+
+        let valorFreteKM = distancia * 1
+        let totalFrete = valorFretePecas + valorFreteKM + taxaRastreamento
+
+        document.getElementById("taxaRastreamento").innerText = `Taxa do rastreamento: R$ ${taxaRastreamento.toFixed(2)}`
+        document.getElementById("valorFretePecas").innerText = `Valor do frete pelas peças: R$ ${valorFretePecas.toFixed(2)}`
+        document.getElementById("valorFreteKM").innerText = `Valor do frete por quilômetro: R$ ${valorFreteKM.toFixed(2)}`
+        document.getElementById("totalFrete").innerText = `Total do frete: R$ ${totalFrete.toFixed(2)}`
+    } catch (error) {
+        document.getElementById("taxaRastreamento").innerText = error.message;
     }
 }

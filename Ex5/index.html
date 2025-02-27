@@ -9,15 +9,32 @@
 <body>
 
     <div class="container">
-        <h1>Calculadora</h1>
+        <h1>Calculadora de Salários</h1>
 
-        <label for="conta">Expressão:</label>
-        <input type="text" id="conta"><br>
+        <label for="codigo">Código:</label>
+        <input type="number" id="codigo"><br>
 
-        <button onclick="calcular()">Calcular</button>
+        <label for="horas">Horas trabalhadas:</label>
+        <input type="number" id="horas"><br>
+
+        <label for="turno">Turno de trabalho (M - Matutino, V - Vespertino, N - Noturno):</label>
+        <input type="text" id="turno"><br>
+
+        <label for="categoria">Categoria (G - Gerente, F - Funcionário):</label>
+        <input type="text" id="categoria"><br>
+
+        <label for="salario">Salário mínimo:</label>
+        <input type="number" id="salario"><br>
+
+        <button onclick="calculaSalario()">Calcular</button>
 
         <h2>Resultado:</h2>
-        <p id="resultado"></p>
+        <p id="codigoSaida"></p>
+        <p id="horasSaida"></p>
+        <p id="valorHoras"></p>
+        <p id="salarioBruto"></p>
+        <p id="alimentacao"></p>
+        <p id="salarioFinal"></p>
     </div>
 
     <script src="script.js"></script>

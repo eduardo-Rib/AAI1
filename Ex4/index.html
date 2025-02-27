@@ -3,38 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Salários</title>
+    <title>Calculadora de Frete</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div class="container">
-        <h1>Calculadora de Salários</h1>
+        <h1>Calculadora de Frete</h1>
 
-        <label for="codigo">Código:</label>
-        <input type="number" id="codigo"><br>
+        <label for="distancia">Distância (km):</label>
+        <input type="number" id="distancia"><br>
 
-        <label for="horas">Horas trabalhadas:</label>
-        <input type="number" id="horas"><br>
+        <label for="pecas">Quantidade de peças:</label>
+        <input type="number" id="pecas"><br>
 
-        <label for="turno">Turno de trabalho (M - Matutino, V - Vespertino, N - Noturno):</label>
-        <input type="text" id="turno"><br>
+        <label for="regiao">Região (1 - Sul, 2 - Sudeste, 3 - Centro-Oeste):</label>
+        <input type="number" id="regiao"><br>
 
-        <label for="categoria">Categoria (G - Gerente, F - Funcionário):</label>
-        <input type="text" id="categoria"><br>
+        <label for="rastreamento">Deseja rastreamento? (S/N):</label>
+        <input type="text" id="rastreamento"><br>
 
-        <label for="salario">Salário mínimo:</label>
-        <input type="number" id="salario"><br>
-
-        <button onclick="calculaSalario()">Calcular</button>
+        <button onclick="calcularFrete()">Calcular Frete</button>
 
         <h2>Resultado:</h2>
-        <p id="codigoSaida"></p>
-        <p id="horasSaida"></p>
-        <p id="valorHoras"></p>
-        <p id="salarioBruto"></p>
-        <p id="alimentacao"></p>
-        <p id="salarioFinal"></p>
+        <p id="taxaRastreamento"></p>
+        <p id="valorFretePecas"></p>
+        <p id="valorFreteKM"></p>
+        <p id="totalFrete"></p>
     </div>
 
     <script src="script.js"></script>
