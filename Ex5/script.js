@@ -1,38 +1,46 @@
-function calculaSalario() {
-    let codigo = parseInt(document.getElementById("codigo").value)
-    let horas = parseFloat(document.getElementById("horas").value)
-    let turno = document.getElementById("turno").value
-    let categoria = document.getElementById("categoria").value.toLowerCase()
-    let salario = parseFloat(document.getElementById("salario").value)
+function getNumbers(conta){
+    let number = conta.match(/\d+/g)
+    return number ? number.map(Number) : []
+}
 
-    let valorHoras = 0;
-    if (categoria === 'g'){
-        if ((turno === 'm')||(turno === 'v')){
-            valorHoras = salario*0.04 
-        }
-    }else{
-        if (turno === 'n'){
-            valorHoras = salario*0.02
-        }else{
-            valorHoras = salario*0.01
+function getOperacao(conta){
+    let index
+    let n = 0
+    for (let i = 0; i <= conta.length; i++){
+        if ((conta[i] === '+')||(conta[i] === '-')||(conta[i] === '*')||(conta[i] === '/')){
+            index = i
+            n++
         }
     }
-
-    let salarioBruto = horas*valorHoras
-
-    let alimentacao  = 0
-    if (salarioBruto <= 800){
-        alimentacao = salarioBruto*0.25
-    }else if (salarioBruto <= 1200){
-        alimentacao = salarioBruto*0.20
-    }else{
-        alimentacao = salarioBruto*0.15
+    if (n === 1){
+        return conta[index]
     }
+    return ''
+}
 
-    document.getElementById("codigoSaida").innerText = `Código: ${codigo}`
-    document.getElementById("horasSaida").innerText = `Horas: ${horas}`
-    document.getElementById("valorHoras").innerText = `Valor por hora: R$ ${valorHoras.toFixed(2)}`
-    document.getElementById("salarioBruto").innerText = `Salário Bruto: R$ ${salarioBruto.toFixed(2)}`
-    document.getElementById("alimentacao").innerText = `Vale alimentação: R$ ${alimentacao.toFixed(2)}`
-    document.getElementById("salarioFinal").innerText = `Salário Final: R$ ${(salarioBruto + alimentacao).toFixed(2)}`
+function calcular() {
+    let conta = document.getElementById("conta").value
+    let numbers = getNumbers(conta)
+    let operacao = getOperacao(conta)
+
+    if ((numbers.length === 2)&&(operacao != '')){
+        let resultado;
+        switch (true) {
+            case (operacao === '+'):
+                resultado = numbers[0] + numbers[1]
+                break
+            case (operacao === '-'):
+                resultado = numbers[0] - numbers[1]
+                break
+            case (operacao === '*'):
+                resultado = numbers[0] * numbers[1]
+                break
+            case (operacao === '/'):
+                resultado = numbers[0] / numbers[1]
+                break
+        }
+        document.getElementById("resultado").innerText = `${numbers[0]} ${operacao} ${numbers[1]} = ${resultado}`
+    }else{
+        document.getElementById("resultado").innerText = `entrada invalida`
+    }
 }
