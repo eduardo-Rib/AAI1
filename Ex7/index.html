@@ -3,23 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Salários</title>
+    <title>Data por Extenso</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <div class="container">
-        <h1>Calculadora</h1>
-
-        <label for="conta">Expressão:</label>
-        <input type="text" id="conta"><br>
-
-        <button onclick="calcular()">Calcular</button>
-
-        <h2>Resultado:</h2>
+        <h1>Conversor de Data</h1>
+        <label for="data">Digite a data (dd/mm/aaaa):</label>
+        <input type="text" id="data" placeholder="Ex: 31/08/2012">
+        <button onclick="converterData()">Converter</button>
         <p id="resultado"></p>
     </div>
-
     <script src="script.js"></script>
 </body>
 </html>

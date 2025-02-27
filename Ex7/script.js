@@ -1,46 +1,37 @@
-function getNumbers(conta){
-    let number = conta.match(/\d+/g)
-    return number ? number.map(Number) : []
-}
+function converterData() {
+    let data = document.getElementById("data").value.trim()
+    
+    let meses = [
+        "janeiro", "fevereiro", "março", "abril", "maio", "junho",
+        "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"
+    ]
 
-function getOperacao(conta){
-    let index
-    let n = 0
-    for (let i = 0; i <= conta.length; i++){
-        if ((conta[i] === '+')||(conta[i] === '-')||(conta[i] === '*')||(conta[i] === '/')){
-            index = i
-            n++
-        }
-    }
-    if (n === 1){
-        return conta[index]
-    }
-    return ''
-}
+    let partes = data.split("/")
 
-function calcular() {
-    let conta = document.getElementById("conta").value
-    let numbers = getNumbers(conta)
-    let operacao = getOperacao(conta)
-
-    if ((numbers.length === 2)&&(operacao != '')){
-        let resultado;
-        switch (true) {
-            case (operacao === '+'):
-                resultado = numbers[0] + numbers[1]
-                break
-            case (operacao === '-'):
-                resultado = numbers[0] - numbers[1]
-                break
-            case (operacao === '*'):
-                resultado = numbers[0] * numbers[1]
-                break
-            case (operacao === '/'):
-                resultado = numbers[0] / numbers[1]
-                break
-        }
-        document.getElementById("resultado").innerText = `${numbers[0]} ${operacao} ${numbers[1]} = ${resultado}`
-    }else{
-        document.getElementById("resultado").innerText = `entrada invalida`
+    if (partes.length !== 3) {
+        document.getElementById("resultado").innerText = "Formato inválido! Use dd/mm/aaaa."
+        return;
     }
+
+    let dia = parseInt(partes[0])
+    let mes = parseInt(partes[1]) - 1
+    let ano = parseInt(partes[2])
+
+    if (mes < 0 || mes > 11 || ano < 1) {
+        document.getElementById("resultado").innerText = "Mês ou ano inválido!"
+        return;
+    }
+
+    let diasPorMes = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+
+    if (mes === 1 && ((ano % 4 === 0 && ano % 100 !== 0) || ano % 400 === 0)) {
+        diasPorMes[1] = 29
+    }
+
+    if (dia < 1 || dia > diasPorMes[mes]) {
+        document.getElementById("resultado").innerText = "Dia inválido para o mês informado!"
+        return
+    }
+
+    document.getElementById("resultado").innerText = `${dia} de ${meses[mes]} de ${ano}`
 }
