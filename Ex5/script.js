@@ -1,7 +1,7 @@
 function calculaSalario() {
     let codigo = parseInt(document.getElementById("codigo").value)
     let horas = parseFloat(document.getElementById("horas").value)
-    let turno = document.getElementById("turno").value
+    let turno = document.getElementById("turno").value.toLowerCase()
     let categoria = document.getElementById("categoria").value.toLowerCase()
     let salario = parseFloat(document.getElementById("salario").value)
 
